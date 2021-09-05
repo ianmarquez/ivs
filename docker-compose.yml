@@ -2,10 +2,19 @@ version: '3.3'
 
 services:
   server:
+    container_name: ivs_server
     build: ./server
-    ports:
+    ports: 
       - '5000:5000'
+  client:
+    container_name: ivs_client
+    build: ./client
+    depends_on:
+      - server
+    ports:
+      - '80:80'
   db:
+    container_name: ivs_db
     image: 'postgres'
     environment:
       POSTGRES_PASSWORD: 'admin'

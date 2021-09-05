@@ -6,7 +6,7 @@ exports.getUsers = async (req, res) => {
     const users = await db.select().from('users');
     res.json(users);
   } catch (err) {
-    res.send(500);
+    res.sendStatus(500);
   }
 };
 
@@ -15,12 +15,12 @@ exports.getUsersById = async (req, res) => {
     const { id } = req.params;
     const user = await db.select('name', 'email').from('users').where({ id });
     if(user.length <= 0) {
-      res.send(404);
+      res.sendStatus(404);
     } else {
       res.send(user);
     }
   } catch (err) {
-    res.send(500);
+    res.sendStatus(500);
   }
 };
 
@@ -30,9 +30,9 @@ exports.addUsers = async (req, res) => {
       name: req.body.name, 
       email: req.body.email 
     });
-    res.send(201);
+    res.sendStatus(201);
   } catch (err) {
-    res.send(500);
+    res.sendStatus(500);
   }
   
 };

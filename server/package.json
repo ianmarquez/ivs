@@ -4,12 +4,12 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.21.18",
     "morgan": "^1.10.0",
     "pg": "^8.5.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",

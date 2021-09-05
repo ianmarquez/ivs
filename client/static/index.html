@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+  <header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <script>
+      let submitToServer = function(obj, successCallback, errorCallback) {
+        $.ajax({
+          method: 'POST',
+          url: '/users',
+          data: obj
+        }).done(successCallback).fail(errorCallback);
+      };
+
+      let submitEvent = function() {
+        document.getElementById('error').innerHTML = ''
+        let name = document.getElementById('name').value;
+        let email = document.getElementById('email').value;
+        if (name && email) {
+          submitToServer({ name, email }, function() {
+            setTimeout(() => {
+              alert('user ' + name + ' was successfully added.');
+            }, 0);
+            document.getElementById('email').value = '';
+            document.getElementById('name').value = '';
+            
+          }, function() {
+            alert('error');
+          });
+        } else {
+          let fields = [];
+          if (!name) fields.push('name');
+          if (!email) fields.push('email');
+          document.getElementById('error').innerHTML = fields.join(' and ') + ' cannot be null';
+        }
+      }
+    </script>
+  </header>
+  <body>
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Register</h2>
+      </div>
+      <hr/>
+      <div class="modal-body">
+        <div id="error"></div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email Address:</label>
+        <input type="text" id="email" name="email"><br><br>
+      </div>
+      <hr/>
+      <div class="modal-footer">
+        <button id="submit" onclick="submitEvent()">Submit</button>
+      </div>
+    </div>
+  </body>
+</html>
